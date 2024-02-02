@@ -1,0 +1,30 @@
+import numpy as np 
+import matplotlib.pyplot as plt 
+from sklearn.datasets import fetch_openml 
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LogisticRegression 
+from sklearn.metrics import accuracy_score 
+# Load the MNIST dataset 
+mnist = fetch_openml('mnist_784') 
+X = mnist.data 
+y = mnist.target 
+# Split the dataset into training and testing sets 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, 
+random_state=42) 
+# Create an instance of Logistic Regression classifier 
+classifier = LogisticRegression(max_iter=1000) 
+# Train the classifier on the training data 
+classifier.fit(X_train, y_train) 
+# Make predictions on the test data 
+y_pred = classifier.predict(X_test) 
+# Calculate the accuracy of the classifier 
+accuracy = accuracy_score(y_test, y_pred) 
+print("Accuracy:", accuracy) 
+# Select a random sample from the test set and visualize the prediction 
+sample_index = np.random.randint(low=0, high=len(X_test)) 
+sample_image = X_test[sample_index].reshape(28, 28) 
+sample_label = y_pred[sample_index] 
+plt.imshow(sample_image, cmap='gray') 
+plt.title(f"Predicted Label: {sample_label}") 
+plt.axis('off') 
+plt.show() 
