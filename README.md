@@ -1,1 +1,1 @@
-# Mini-Project
+# Handwritten Digit Classification
